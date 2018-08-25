@@ -1,2 +1,2 @@
-# GitTest
-TestGitVSIntegration
+# SecureProjectGit
+Secure Project Repository
