@@ -1,7 +1,25 @@
-﻿
+﻿@model SecureWebsitePractices.Models.ProductModel
 @{
     ViewBag.Title = "ProductSearch";
 }
 
-<h2>ProductSearch</h2>
+<h2>Product Search</h2>
 
+<h3>@Model.ProductList.Count() Results found</h3>
+<table>
+    <tr>
+        <th>Product Code</th>
+        <th>Product Name</th>
+        <th>Stock Level</th>
+    </tr>
+
+    @foreach (var items in Model.ProductList)
+    {
+        <tr>
+            <td>@items.ProductAlternateKey</td>
+            <td>@items.ProductName</td>
+            <td>@items.StockLevel</td>
+
+        </tr>
+    }
+</table>
