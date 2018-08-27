@@ -11,6 +11,7 @@ namespace SecureWebsitePractices.Models
         public string ProductAlternateKey { get; set; }
         public string ProductName { get; set; }
         public int StockLevel { get; set; }
+        public string Searched { get; set; }
 
         public List<ProductModel> ProductList { get; set; }
 
