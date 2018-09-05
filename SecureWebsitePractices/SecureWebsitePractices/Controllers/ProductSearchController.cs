@@ -17,6 +17,8 @@ namespace SecureWebsitePractices.Controllers
         {
             var model = new ProductModel();
 
+            model.ProductList= GetProducts("");
+
             return View("ProductSearch", model);
         }
 
