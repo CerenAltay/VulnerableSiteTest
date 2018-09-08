@@ -13,42 +13,63 @@ namespace SecureWebsitePractices.Controllers
     public class ProductSearchController : Controller
     {
         // GET: ProductSearch
-        public ActionResult Index()
+        public ActionResult Index(string id, string name)
         {
             var model = new ProductModel();
 
-            model.ProductList= GetProducts("");
-
-            return View("ProductSearch", model);
-        }
-
-        [HttpPost]
-        public ActionResult SearchById(string id)
-        {
-            var model = new ProductModel();
-
-            if (id != null)
+            if (id == String.Empty && name == String.Empty)
             {
-                model.ProductList = GetProducts(id);
+                model.ProductList = GetProductsId("1");
+
             }
-
-            return View("ProductSearch", model);
-        }
-
-        [HttpPost]
-        public ActionResult SearchByName(string name)
-        {
-            var model = new ProductModel();
-
-            if (name != null)
+            if (id != null || name == null || name == String.Empty)
             {
-                model.ProductList = MatchProducts(name);
-            }
+                model.ProductList = GetProductsId(id);
+                model.SearchedById = true;
 
+            }
+            if(name != null)
+            {
+                model.SearchedByName = true;
+                model.ProductName = name;
+                model.ProductList = GetProductsName(name);
+
+            }
+            else
+            {
+                return View("ProductSearch", model);
+
+            }
             return View("ProductSearch", model);
         }
 
-        public List<ProductModel> GetProducts(string prodID)
+        //[HttpPost]
+        //public ActionResult SearchById(string id)
+        //{
+        //    var model = new ProductModel();
+
+        //    if (id != null)
+        //    {
+        //        model.ProductList = GetProductsId(id);
+        //    }
+
+        //    return View(model);
+        //}
+
+        //[HttpPost]
+        //public ActionResult SearchByName(string name)
+        //{
+        //    var model = new ProductModel();
+
+        //    if (name != null)
+        //    {
+        //        model.ProductList = GetProductsName(name);
+        //    }
+
+        //    return View(model);
+        //}
+
+        public List<ProductModel> GetProductsId(string prodID)
         {
             var result = new List<ProductModel>();
 
@@ -77,7 +98,7 @@ namespace SecureWebsitePractices.Controllers
             return result;
         }
 
-        public List<ProductModel> MatchProducts(string prodName)
+        public List<ProductModel> GetProductsName(string prodName)
         {
             var result = new List<ProductModel>();
 

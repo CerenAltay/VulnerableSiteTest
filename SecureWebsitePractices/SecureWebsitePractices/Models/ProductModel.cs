@@ -12,6 +12,9 @@ namespace SecureWebsitePractices.Models
         public string ProductName { get; set; }
         public int StockLevel { get; set; }
         public string Searched { get; set; }
+        public bool SearchedById { get; set; }
+        public bool SearchedByName { get; set; }
+
 
         public List<ProductModel> ProductList { get; set; }
 
