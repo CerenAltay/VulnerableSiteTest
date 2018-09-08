@@ -28,7 +28,7 @@ namespace SecureWebsitePractices.Controllers
                 model.SearchedById = true;
 
             }
-            if(name != null && (id == null || id == String.Empty))
+            else if(name != null)
             {
                 model.SearchedByName = true;
                 model.ProductName = name;
@@ -40,34 +40,9 @@ namespace SecureWebsitePractices.Controllers
                 return View("Index", model);
 
             }
-            return View("Index", model);
+            return View(model);
         }
 
-        //[HttpPost]
-        //public ActionResult SearchById(string id)
-        //{
-        //    var model = new ProductModel();
-
-        //    if (id != null)
-        //    {
-        //        model.ProductList = GetProductsId(id);
-        //    }
-
-        //    return View(model);
-        //}
-
-        //[HttpPost]
-        //public ActionResult SearchByName(string name)
-        //{
-        //    var model = new ProductModel();
-
-        //    if (name != null)
-        //    {
-        //        model.ProductList = GetProductsName(name);
-        //    }
-
-        //    return View(model);
-        //}
 
         public List<ProductModel> GetProductsId(string prodID)
         {

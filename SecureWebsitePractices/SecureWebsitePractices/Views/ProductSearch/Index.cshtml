@@ -25,7 +25,7 @@
     <div><input type="submit" value="Submit" /></div>
 
 }
-<br /><hr /><hr /><br />
+<hr /><hr />
 <h2>Product Search Results</h2>
 <hr />
 
@@ -40,6 +40,7 @@ else
 
 <table>
     <tr>
+        <th>Product Id</th>
         <th>Product Code</th>
         <th>Product Name</th>
         <th>Stock Level</th>
@@ -48,6 +49,7 @@ else
     @foreach (var items in Model.ProductList)
     {
         <tr>
+            <td>@items.ProductKey</td>
             <td>@items.ProductAlternateKey</td>
             <td>@items.ProductName</td>
             <td>@items.StockLevel</td>
