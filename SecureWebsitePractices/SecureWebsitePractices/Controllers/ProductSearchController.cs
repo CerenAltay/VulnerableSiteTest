@@ -17,18 +17,18 @@ namespace SecureWebsitePractices.Controllers
         {
             var model = new ProductModel();
 
-            if (id == String.Empty && name == String.Empty)
+            if (id == String.Empty && name == String.Empty || (id == null && name == null))
             {
                 model.ProductList = GetProductsId("1");
 
             }
-            if (id != null || name == null || name == String.Empty)
+            if (id != null && (name == null || name == String.Empty))
             {
                 model.ProductList = GetProductsId(id);
                 model.SearchedById = true;
 
             }
-            if(name != null)
+            if(name != null && (id == null || id == String.Empty))
             {
                 model.SearchedByName = true;
                 model.ProductName = name;
@@ -37,10 +37,10 @@ namespace SecureWebsitePractices.Controllers
             }
             else
             {
-                return View("ProductSearch", model);
+                return View("Index", model);
 
             }
-            return View("ProductSearch", model);
+            return View("Index", model);
         }
 
         //[HttpPost]
