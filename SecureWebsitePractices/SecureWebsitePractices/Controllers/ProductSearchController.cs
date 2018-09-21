@@ -13,27 +13,25 @@ namespace SecureWebsitePractices.Controllers
     public class ProductSearchController : Controller
     {
         // GET: ProductSearch
-        public ActionResult Index(string id, string name)
+        public ActionResult Index(string productid, string name)
         {
             var model = new ProductModel();
 
-            if (id == String.Empty && name == String.Empty || (id == null && name == null))
+            if (productid == String.Empty && name == String.Empty || (productid == null && name == null))
             {
                 model.ProductList = GetProductsId("1");
-
             }
-            if (id != null && (name == null || name == String.Empty))
+            if (productid != null && (name == null || name == String.Empty))
             {
-                model.ProductList = GetProductsId(id);
+                model.ProductList = GetProductsId(productid);
                 model.SearchedById = true;
-
+                model.ProductKey = productid;
             }
-            else if(name != null)
+            else if (name != null)
             {
                 model.SearchedByName = true;
                 model.ProductName = name;
                 model.ProductList = GetProductsName(name);
-
             }
             else
             {
@@ -43,6 +41,10 @@ namespace SecureWebsitePractices.Controllers
             return View(model);
         }
 
+        public ActionResult SearchValue(string id, string name)
+        {
+            return RedirectToAction("Index", new { productid = id, name = name });
+        }
 
         public List<ProductModel> GetProductsId(string prodID)
         {
@@ -61,7 +63,7 @@ namespace SecureWebsitePractices.Controllers
 
                         ProductModel Products = new ProductModel();
 
-                        Products.ProductKey = reader.GetInt32(0);
+                        Products.ProductKey = reader.GetInt32(0).ToString();
                         Products.ProductAlternateKey = reader.GetString(1);
                         Products.ProductName = reader.GetString(5);
                         Products.StockLevel = reader.GetInt16(11);
@@ -92,7 +94,7 @@ namespace SecureWebsitePractices.Controllers
                 {
                     while (reader.Read())
                     {
-                        Products.ProductKey = reader.GetInt32(0);
+                        Products.ProductKey = reader.GetInt32(0).ToString();
                         Products.ProductAlternateKey = reader.GetString(1);
                         Products.ProductName = reader.GetString(5);
                         Products.StockLevel = reader.GetInt16(11);

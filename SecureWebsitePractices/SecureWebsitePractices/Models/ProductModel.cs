@@ -7,7 +7,7 @@ namespace SecureWebsitePractices.Models
 {
     public class ProductModel
     {
-        public int ProductKey { get; set; }
+        public string ProductKey { get; set; }
         public string ProductAlternateKey { get; set; }
         public string ProductName { get; set; }
         public int StockLevel { get; set; }
