@@ -18,4 +18,13 @@ namespace SecureWebsitePractices
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
+    public class Global : HttpApplication
+    {
+        void Application_Start(object sender, EventArgs e)
+        {
+            // Code that runs on application startup
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+        }
+    }
 }

@@ -66,7 +66,7 @@ namespace SecureWebsitePractices.Controllers
                         Products.ProductKey = reader.GetInt32(0).ToString();
                         Products.ProductAlternateKey = reader.GetString(1);
                         Products.ProductName = reader.GetString(5);
-                        Products.StockLevel = reader.GetInt16(11);
+                        Products.StockLevel = reader.GetInt16(9);
 
                         result.Add(Products);
                     }
