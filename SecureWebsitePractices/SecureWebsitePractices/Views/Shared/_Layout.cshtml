@@ -21,7 +21,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Product Search", "Index", "ProductSearch")</li>
+                    <li>@Html.ActionLink("Search Stock", "Index", "ProductSearch")</li>
+                    <li><a href="~/Default.aspx">Search Products</a></li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
@@ -33,7 +34,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Developed for Derby University by C Altay</p>
+            <p>&copy; @DateTime.Now.Year - Developed by C Altay - Derby University</p>
         </footer>
     </div>
 

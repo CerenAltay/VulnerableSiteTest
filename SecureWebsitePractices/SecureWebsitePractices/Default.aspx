@@ -1,11 +1,11 @@
 ﻿<%@ Page Title="Search by Name" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="SecureWebsitePractices.Default" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<%--<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">
-</asp:Content>
+</asp:Content>--%>
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
   <hgroup class="title">
     <h1>Search.</h1>

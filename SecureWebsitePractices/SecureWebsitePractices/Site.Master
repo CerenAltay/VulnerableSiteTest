@@ -1,68 +1,74 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="SecureWebsitePractices.Site" %>
 
-<!DOCTYPE html>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head runat="server">
-    <title>Search by Name</title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+    <meta charset="utf-8" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
 </head>
 <body>
-    <form id="form1" runat="server">
-        <div>
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--<asp:ScriptReference Name="jquery-1.10.2.js" Assembly="System.Web" Path="~/Scripts/jquery-1.10.2.js" />
+                <asp:ScriptReference Name="bootstrap.js" Assembly="System.Web" Path="~/Scripts/bootstrap.js" />
+                <asp:ScriptReference Name="respond.js" Assembly="System.Web" Path="~/Scripts/respond.js" />--%>
+                <%--<asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />--%>
+            </Scripts>
+        </asp:ScriptManager>
+
         <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">
-                        <a runat="server" href="~/">your logo here</a>
-                    </p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        <asp:LoginView runat="server" ViewStateMode="Disabled">
-                            <AnonymousTemplate>
-                                <ul>
-                                    <li><a id="registerLink" runat="server" href="~/Account/Register.aspx">Register</a></li>
-                                    <li><a id="loginLink" runat="server" href="~/Account/Login.aspx">Log in</a></li>
-                                </ul>
-                            </AnonymousTemplate>
-                            <LoggedInTemplate>
-                                <p>
-                                    Hello, <a runat="server" class="username" href="~/Account/Manage.aspx" title="Manage your account">
-                                        <asp:LoginName runat="server" CssClass="username" />
-                                    </a>!
-                                <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
-                                </p>
-                            </LoggedInTemplate>
-                        </asp:LoginView>
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li><a runat="server" href="~/">Home</a></li>
-                            <li><a runat="server" href="~/EncodingTest.aspx">Web Forms Encooding Test</a></li>
-                            <li><a runat="server" href="~/EncodingTest">MVC Encoding Test</a></li>
-                            <li><a runat="server" href="~/EncodingTest/CreateAccount">Create User Account</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <link href="/SecureWebsitePractices/Content/bootstrap.css" rel="stylesheet" />
+            <link href="/SecureWebsitePractices/Content/site.css" rel="stylesheet" />
+
+            <script src="/SecureWebsitePractices/Scripts/modernizr-2.6.2.js"></script>
         </header>
         <div id="body">
-            <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
-            <section class="content-wrapper main-content clear-fix">
-                <asp:ContentPlaceHolder runat="server" ID="MainContent" />
-            </section>
-        </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/SecureWebsitePractices/">Secure Practices Website</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/SecureWebsitePractices/ProductSearch">Search Stock</a></li>
+                            <li><a href="/SecureWebsitePractices/Default.aspx">Search Products</a></li>
+                            <li><a href="/SecureWebsitePractices/Home/About">About</a></li>
+                            <li><a href="/SecureWebsitePractices/Home/Contact">Contact</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/SecureWebsitePractices/Account/Register" id="registerLink">Register</a></li>
+                            <li><a href="/SecureWebsitePractices/Account/Login" id="loginLink">Log in</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+            <asp:ContentPlaceHolder runat="server" ID="HeaderContent" />
+            <section class="container body-content">
+               <%-- <div class="jumbotron">--%>
+                    <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+              <%--  </div>--%>
+            </section>
+        </div>
+        <hr />
+        <footer class="container">
+            <p>&copy; 2018 - Developed by C Altay - Derby University</p>
         </footer>
     </form>
 </body>
