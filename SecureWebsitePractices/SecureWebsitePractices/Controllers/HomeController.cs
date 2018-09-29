@@ -1,4 +1,5 @@
-﻿using SecureWebsitePractices.Models;
+﻿using SecureWebsitePractices.Membership;
+using SecureWebsitePractices.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,8 @@ using System.Web.Mvc;
 
 namespace SecureWebsitePractices.Controllers
 {
+    [Authorize]
+    [InitializeMembership]
     public class HomeController : Controller
     {
         public ActionResult Index()

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SecureWebsitePractices.Models
 {
@@ -48,15 +50,15 @@ namespace SecureWebsitePractices.Models
 
     public class LoginViewModel
     {
+      
+        [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+         
         [Required]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
-
-        [Required]
-        [Display(Name = "Username")]
-        [EmailAddress]
-        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -65,10 +67,16 @@ namespace SecureWebsitePractices.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        public bool LoginWithUsername { get; set; }
     }
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -114,4 +122,6 @@ namespace SecureWebsitePractices.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+
 }
