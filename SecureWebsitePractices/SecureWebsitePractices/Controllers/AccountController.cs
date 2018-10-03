@@ -54,11 +54,69 @@ namespace SecureWebsitePractices.Controllers
                 _userManager = value;
             }
         }
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult LoginByUsername(string returnUrl)
+        {
+            ViewBag.Email = Session["Username"];
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> LoginByUsername(LoginViewModel model, string returnUrl)
+        {
+            //if (model.UserName == null)
+            //{
+            //    model.LoginWithUsername = false;
+            //    model.UserName = model.Email;
+            //}
+            //else
+            //{
+            //    model.LoginWithUsername = true;
+            //    model.UserName = model.UserName;
+            //}
+
+
+            if (WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            {
+                return RedirectToLocal(returnUrl);
+            }
+
+            //Session["Email"] = model.Email;
+            //ViewBag.Email = model.Email;
+
+
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
+        }
 
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult LoginByEmail(string returnUrl)
         {
             ViewBag.Email = Session["Email"];
             ViewBag.ReturnUrl = returnUrl;
@@ -70,24 +128,24 @@ namespace SecureWebsitePractices.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> LoginByEmail(LoginViewModel model, string returnUrl)
         {
-            if(model.UserName == null)
-            {
-                model.LoginWithUsername = false;
-                model.UserName = model.Email;
-            }
-            else
-            {
-                model.LoginWithUsername = true;
-                model.UserName = model.UserName;
-            }
+            //if(model.UserName == null)
+            //{
+            //    model.LoginWithUsername = false;
+            //    model.UserName = model.Email;
+            //}
+            //else
+            //{
+            //    model.LoginWithUsername = true;
+            //    model.UserName = model.UserName;
+            //}
 
 
-            if (WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
-            {
-                return RedirectToLocal(returnUrl);
-            }
+            //if (WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            //{
+            //    return RedirectToLocal(returnUrl);
+            //}
 
             Session["Email"] = model.Email;
                 ViewBag.Email = model.Email;
@@ -97,7 +155,7 @@ namespace SecureWebsitePractices.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
 
-            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
 
             switch (result)
             {

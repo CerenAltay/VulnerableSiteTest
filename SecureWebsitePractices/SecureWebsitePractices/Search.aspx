@@ -6,14 +6,20 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">
 </asp:Content>--%>
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
-  <h3>You searched for <strong><asp:Label runat="server" ID="SearchTerm" /></strong></h3>
-
+  <br /><br />
+    <h2>Product Search Results</h2>
+    <hr /><br />
+    <h3>Results for <strong><asp:Label runat="server" ID="SearchTerm" /></strong></h3>
+   
+    <hr />
   <asp:GridView runat="server" ID="SearchGrid" AutoGenerateColumns="False" Width="100%">
     <EmptyDataTemplate>
-      No results were found
+       
+      <h3>No results were found</h3>
     </EmptyDataTemplate>
     <Columns>
       <asp:HyperLinkField DataTextField="ProductName" HeaderText="Product name" />
     </Columns>
   </asp:GridView>
+    <br /><br />
 </asp:Content>

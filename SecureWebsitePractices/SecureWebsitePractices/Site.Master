@@ -47,9 +47,9 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a href="/SecureWebsitePractices/ProductSearch">Search Stock</a></li>
-                            <li><a href="/SecureWebsitePractices/Default.aspx">Search Products</a></li>
-                            <li><a href="/SecureWebsitePractices/Home/About">About</a></li>
+                            <li><a href="/SecureWebsitePractices/Default.aspx">Product Search</a></li>
+                            <li><a href="/SecureWebsitePractices/ProductSearch">Stock Search</a></li>                            
+                            <li><a href="/SecureWebsitePractices/Home/About">Profile</a></li>
                             <li><a href="/SecureWebsitePractices/Home/Contact">Contact</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
