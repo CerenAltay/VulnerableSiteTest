@@ -54,6 +54,67 @@ namespace SecureWebsitePractices.Controllers
                 _userManager = value;
             }
         }
+
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
+        {
+            ViewBag.Email = Session["Email"];
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        {
+            //if(model.UserName == null)
+            //{
+            //    model.LoginWithUsername = false;
+            //    model.UserName = model.Email;
+            //}
+            //else
+            //{
+            //    model.LoginWithUsername = true;
+            //    model.UserName = model.UserName;
+            //}
+
+
+            //if (WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            //{
+            //    return RedirectToLocal(returnUrl);
+            //}
+
+            Session["Email"] = model.Email;
+            ViewBag.Email = model.Email;
+
+
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
+        }
+
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -109,68 +170,11 @@ namespace SecureWebsitePractices.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return View("Login",model);
             }
         }
 
-        //
-        // GET: /Account/Login
-        [AllowAnonymous]
-        public ActionResult LoginByEmail(string returnUrl)
-        {
-            ViewBag.Email = Session["Email"];
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
-
-        //
-        // POST: /Account/Login
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> LoginByEmail(LoginViewModel model, string returnUrl)
-        {
-            //if(model.UserName == null)
-            //{
-            //    model.LoginWithUsername = false;
-            //    model.UserName = model.Email;
-            //}
-            //else
-            //{
-            //    model.LoginWithUsername = true;
-            //    model.UserName = model.UserName;
-            //}
-
-
-            //if (WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
-            //{
-            //    return RedirectToLocal(returnUrl);
-            //}
-
-            Session["Email"] = model.Email;
-                ViewBag.Email = model.Email;
-
-
-
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
-        }
+       
 
         //
         // GET: /Account/VerifyCode
@@ -232,7 +236,7 @@ namespace SecureWebsitePractices.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
