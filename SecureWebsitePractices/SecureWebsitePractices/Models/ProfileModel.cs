@@ -23,12 +23,14 @@ namespace SecureWebsitePractices.Models
     [Table("Profile")]
     public class ProfileModel
     {
+        private string _nINumber;
+
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
         public DateTime BirthDate { get; set; }
-        public Int64 NINumber { get; set; }
+        public string NINumber { get; set; }
         public string Address { get; set; }
     }
 }

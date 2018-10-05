@@ -92,6 +92,18 @@ namespace SecureWebsitePractices.Models
         public string ConfirmPassword { get; set; }
     }
 
+    [Table("Profile")]
+    public class Profile
+    {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public Int64 TaxFileNumber { get; set; }
+        public string Address { get; set; }
+    }
+
     public class ResetPasswordViewModel
     {
         [Required]
