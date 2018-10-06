@@ -1,0 +1,77 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="SecureWebsitePractices2.Site" %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+             <%--   <asp:ScriptReference Name="jquery-1.12.4.js" Assembly="System.Web" Path="~/Scripts/jquery-1.12.4.js" />
+                <asp:ScriptReference Name="jquery-1.12.4.js" Assembly="System.Web" Path="~/Scripts/jquery.unobtrusive-ajax.js" />
+                <asp:ScriptReference Name="jquery-1.12.4.js" Assembly="System.Web" Path="~/Scripts/jquery.validate.js" />--%>
+            <%--    <asp:ScriptReference Name="bootstrap.js" Assembly="System.Web" Path="~/Scripts/bootstrap.js" />
+                <asp:ScriptReference Name="respond.js" Assembly="System.Web" Path="~/Scripts/respond.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <header>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <link href="/SecureWebsitePractices/Content/bootstrap.css" rel="stylesheet" />
+            <link href="/SecureWebsitePractices/Content/site.css" rel="stylesheet" />
+
+            <script src="/SecureWebsitePractices/Scripts/modernizr-2.6.2.js"></script>
+        </header>
+        <div id="body">
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/SecureWebsitePractices/Home/Index">Secure Practices Website</a>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/SecureWebsitePractices/Default.aspx">Product Search</a></li>
+                            <li><a href="/SecureWebsitePractices/ProductSearch">Stock Search</a></li>                            
+                            <li><a href="/SecureWebsitePractices/Home/About">Profile</a></li>
+                            <li><a href="/SecureWebsitePractices/Home/Contact">Contact</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/SecureWebsitePractices/Account/Register" id="registerLink">Register</a></li>
+                            <li><a href="/SecureWebsitePractices/Account/Login" id="loginLink">Log in</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <asp:ContentPlaceHolder runat="server" ID="HeaderContent" />
+            <section class="container body-content">
+               <%-- <div class="jumbotron">--%>
+                    <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+              <%--  </div>--%>
+            </section>
+        </div>
+        <hr />
+        <footer class="container">
+            <p>&copy; 2018 - Developed by Ceren Altay - Derby University</p>
+        </footer>
+    </form>
+</body>
+</html>
