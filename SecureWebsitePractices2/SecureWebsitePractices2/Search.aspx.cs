@@ -20,7 +20,7 @@ namespace SecureWebsitePractices2
             var result = new List<ProductModel>();
 
             ProductModel Products = new ProductModel();
-         
+
             Products.Searched = Request.QueryString["q"];
 
 
