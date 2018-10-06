@@ -18,12 +18,12 @@
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
-                <asp:ScriptReference Name="jquery-1.10.2.js" Assembly="System.Web" Path="~/Scripts/jquery-1.12.4.js" />
-                <asp:ScriptReference Name="jquery-1.10.2.js" Assembly="System.Web" Path="~/Scripts/jquery.unobtrusive-ajax.js" />
-                <asp:ScriptReference Name="jquery-1.10.2.js" Assembly="System.Web" Path="~/Scripts/jquery.validate.js" />
-                <asp:ScriptReference Name="bootstrap.js" Assembly="System.Web" Path="~/Scripts/bootstrap.js" />
+             <%--   <asp:ScriptReference Name="jquery-1.12.4.js" Assembly="System.Web" Path="~/Scripts/jquery-1.12.4.js" />
+                <asp:ScriptReference Name="jquery-1.12.4.js" Assembly="System.Web" Path="~/Scripts/jquery.unobtrusive-ajax.js" />
+                <asp:ScriptReference Name="jquery-1.12.4.js" Assembly="System.Web" Path="~/Scripts/jquery.validate.js" />--%>
+            <%--    <asp:ScriptReference Name="bootstrap.js" Assembly="System.Web" Path="~/Scripts/bootstrap.js" />
                 <asp:ScriptReference Name="respond.js" Assembly="System.Web" Path="~/Scripts/respond.js" />
-                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />--%>
             </Scripts>
         </asp:ScriptManager>
 
