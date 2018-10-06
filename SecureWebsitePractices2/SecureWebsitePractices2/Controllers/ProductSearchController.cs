@@ -51,17 +51,19 @@ namespace SecureWebsitePractices2.Controllers
             var result = new List<ProductModel>();
 
             //TODO: SQL 1 --> Parameterisation
-            string productKey = prodID;
-            var sqlString = "SELECT * FROM Product WHERE ProductKey = @ProductKey";
+            string productKey = prodID; //--> SQL 1 Parameter 
+            ////var sqlString = "SELECT * FROM Product WHERE ProductKey = @ProductKey";   //--> SQL 1 Parameter 
 
-            //var sqlString = "SELECT * FROM Product WHERE ProductKey = " + prodID;
+            //var sqlString = "SELECT * FROM Product WHERE ProductKey = " + prodID; // original
             // -->
             var connString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var sqlString = "FetchProducts"; // --> SQL 2-Stored Procedures
             using (var conn = new SqlConnection(connString))
             {
                 var command = new SqlCommand(sqlString, conn);
                 // -->
-                SqlParameter key = command.Parameters.AddWithValue("@ProductKey", productKey);
+                command.CommandType = CommandType.StoredProcedure; //--> SQL 2-Stored Procedures
+                SqlParameter key = command.Parameters.AddWithValue("@ProductKey", productKey); //--> SQL 1 Parameter 
                 // -->
                 command.Connection.Open();
                 using (SqlDataReader reader = command.ExecuteReader())
