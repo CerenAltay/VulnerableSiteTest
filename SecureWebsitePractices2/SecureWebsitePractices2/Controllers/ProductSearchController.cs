@@ -10,101 +10,102 @@ using System.Web.Mvc;
 
 namespace SecureWebsitePractices2.Controllers
 {
-    // GET: ProductSearch
-    public ActionResult Index(string productid, string name)
+    public class ProductSearchController : Controller
     {
-        var model = new ProductModel();
-
-        if (productid == String.Empty && name == String.Empty || (productid == null && name == null))
+        // GET: ProductSearch
+        public ActionResult Index(string productid, string name)
         {
-            model.ProductList = GetProductsId("1");
-        }
-        if (productid != null && (name == null || name == String.Empty))
-        {
-            model.ProductList = GetProductsId(productid);
-            model.SearchedById = true;
-            model.ProductKey = productid;
-        }
-        else if (name != null)
-        {
-            model.SearchedByName = true;
-            model.ProductName = name;
-            model.ProductList = GetProductsName(name);
-        }
-        else
-        {
-            return View("Index", model);
+            var model = new ProductModel();
 
-        }
-        return View(model);
-    }
-
-    public ActionResult SearchValue(string id, string name)
-    {
-        return RedirectToAction("Index", new { productid = id, name = name });
-    }
-
-    public List<ProductModel> GetProductsId(string prodID)
-    {
-        var result = new List<ProductModel>();
-
-        var sqlString = "SELECT * FROM Product WHERE ProductKey = " + prodID;
-        var connString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-        using (var conn = new SqlConnection(connString))
-        {
-            var command = new SqlCommand(sqlString, conn);
-            command.Connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
+            if (productid == String.Empty && name == String.Empty || (productid == null && name == null))
             {
-                while (reader.Read())
+                model.ProductList = GetProductsId("1");
+            }
+            if (productid != null && (name == null || name == String.Empty))
+            {
+                model.ProductList = GetProductsId(productid);
+                model.SearchedById = true;
+                model.ProductKey = productid;
+            }
+            else if (name != null)
+            {
+                model.SearchedByName = true;
+                model.ProductName = name;
+                model.ProductList = GetProductsName(name);
+            }
+            else
+            {
+                return View("Index", model);
+
+            }
+            return View(model);
+        }
+
+        public ActionResult SearchValue(string id, string name)
+        {
+            return RedirectToAction("Index", new { productid = id, name = name });
+        }
+
+        public List<ProductModel> GetProductsId(string prodID)
+        {
+            var result = new List<ProductModel>();
+
+            var sqlString = "SELECT * FROM Product WHERE ProductKey = " + prodID;
+            var connString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            using (var conn = new SqlConnection(connString))
+            {
+                var command = new SqlCommand(sqlString, conn);
+                command.Connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
+                    while (reader.Read())
+                    {
 
-                    ProductModel Products = new ProductModel();
+                        ProductModel Products = new ProductModel();
 
-                    Products.ProductKey = reader.GetInt32(0).ToString();
-                    Products.ProductAlternateKey = reader.GetString(1);
-                    Products.ProductName = reader.GetString(5);
-                    Products.StockLevel = reader.GetInt16(9);
+                        Products.ProductKey = reader.GetInt32(0).ToString();
+                        Products.ProductAlternateKey = reader.GetString(1);
+                        Products.ProductName = reader.GetString(5);
+                        Products.StockLevel = reader.GetInt16(9);
 
-                    result.Add(Products);
+                        result.Add(Products);
+                    }
                 }
             }
+            return result;
         }
-        return result;
-    }
 
-    public List<ProductModel> GetProductsName(string prodName)
-    {
-        var result = new List<ProductModel>();
-
-        ProductModel Products = new ProductModel();
-
-        Products.Searched = Request.QueryString["prodName"];
-
-
-        var sqlString = "SELECT * FROM Product";
-        var connString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-        using (var conn = new SqlConnection(connString))
+        public List<ProductModel> GetProductsName(string prodName)
         {
-            var command = new SqlCommand(sqlString, conn);
-            command.Connection.Open();
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    Products.ProductKey = reader.GetInt32(0).ToString();
-                    Products.ProductAlternateKey = reader.GetString(1);
-                    Products.ProductName = reader.GetString(5);
-                    Products.StockLevel = reader.GetInt16(11);
+            var result = new List<ProductModel>();
 
-                    result.Add(Products);
+            ProductModel Products = new ProductModel();
+
+            Products.Searched = Request.QueryString["prodName"];
+
+
+            var sqlString = "SELECT * FROM Product";
+            var connString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            using (var conn = new SqlConnection(connString))
+            {
+                var command = new SqlCommand(sqlString, conn);
+                command.Connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Products.ProductKey = reader.GetInt32(0).ToString();
+                        Products.ProductAlternateKey = reader.GetString(1);
+                        Products.ProductName = reader.GetString(5);
+                        Products.StockLevel = reader.GetInt16(11);
+
+                        result.Add(Products);
+                    }
                 }
             }
+            //result = Products.Any(m => m.ProductName.Contains("Products.Searched, StringComparison.OrdinalIgnoreCase") >=0);//"SELECT * FROM Product WHERE ProductName = " + Products.Searched;
+            return result;
         }
-        //result = Products.Any(m => m.ProductName.Contains("Products.Searched, StringComparison.OrdinalIgnoreCase") >=0);//"SELECT * FROM Product WHERE ProductName = " + Products.Searched;
-        return result;
     }
-}
-
 
 }
