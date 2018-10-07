@@ -20,6 +20,13 @@ namespace SecureWebsitePractices2.Controllers
                 throw new ApplicationException("User not authenticated");
             }
 
+            //Access control
+            //if (User.Identity.Name != userName)
+            //{
+            //    throw new ApplicationException("Access not authorised.");
+            //}
+
+
             ProfileModel profile = new ProfileModel();
 
             using (UserContext context = new UserContext())
