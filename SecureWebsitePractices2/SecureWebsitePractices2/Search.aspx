@@ -5,7 +5,11 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="FeaturedContent" runat="server">
 </asp:Content>--%>
-<asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">    
+    <script type="text/javascript">
+        var q = <%= Microsoft.Security.Application.Encoder.JavaScriptEncode(Request.QueryString["q"]) %>
+    </script>
+
   <br /><br />
     <h2>Product Search Results</h2>
     <hr /><br />
