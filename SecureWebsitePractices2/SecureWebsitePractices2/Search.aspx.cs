@@ -8,6 +8,7 @@ using System.Web.Configuration;
 using System.Web.Security.AntiXss;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 namespace SecureWebsitePractices2
 {
@@ -58,6 +59,11 @@ namespace SecureWebsitePractices2
 
             //added XSS encoder
             SearchTerm.Text = AntiXssEncoder.HtmlEncode(searchTerm, true);
+            if (!Regex.IsMatch(searchTerm, @"^[\p{L} \.\-]+$"))
+            {
+                throw new ApplicationException("Input characters not allowed.");
+            }
+
 
             var result = new List<ProductModel>();
 
