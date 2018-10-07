@@ -51,13 +51,22 @@ namespace SecureWebsitePractices2.Controllers
             var result = new List<ProductModel>();
 
             //TODO: SQL 1 --> Parameterisation
-            string productKey = prodID; //--> SQL 1 Parameter 
+           // string productKey = prodID; //--> SQL 1 Parameter 
             ////var sqlString = "SELECT * FROM Product WHERE ProductKey = @ProductKey";   //--> SQL 1 Parameter 
 
             //var sqlString = "SELECT * FROM Product WHERE ProductKey = " + prodID; // original
             // -->
             var connString = WebConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
             var sqlString = "FetchProducts"; // --> SQL 2-Stored Procedures
+
+            //--> SQL 3 Input validation-type conversion 
+            int productKey;
+            if (!int.TryParse(prodID, out productKey)){
+
+                throw new ApplicationException("Not a valid input format");
+            }
+            //--> SQL 3 Input validation-type conversion  
+
             using (var conn = new SqlConnection(connString))
             {
                 var command = new SqlCommand(sqlString, conn);
