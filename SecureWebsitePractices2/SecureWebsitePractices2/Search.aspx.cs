@@ -52,17 +52,19 @@ namespace SecureWebsitePractices2
         //}
 
 
-        //-->Html output encoding
+        //-->Html output encoding and Regex
         protected void Page_Load(object sender, EventArgs e)
         {
             var searchTerm = Request.QueryString["q"];
 
-            //added XSS encoder
-            SearchTerm.Text = AntiXssEncoder.HtmlEncode(searchTerm, true);
+            //XSS 2-> added Regex
             if (!Regex.IsMatch(searchTerm, @"^[\p{L} \.\-]+$"))
             {
                 throw new ApplicationException("Input characters not allowed.");
             }
+
+            //XSS 1-> added XSS encoder
+            SearchTerm.Text = AntiXssEncoder.HtmlEncode(searchTerm, true);
 
 
             var result = new List<ProductModel>();
