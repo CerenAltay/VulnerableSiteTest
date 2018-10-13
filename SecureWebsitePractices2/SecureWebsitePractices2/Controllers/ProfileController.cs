@@ -41,9 +41,10 @@ namespace SecureWebsitePractices2.Controllers
 
             return Json(new
             {
+                UserName = profile.UserName,
                 Address = profile.Address,
-                BirthDate = profile.BirthDate.ToString("d MMM yyyy"),
-                TaxFileNumber = profile.NINumber
+                BirthDate = profile.BirthDate.ToString("dd MM yyyy"),
+                NINumber = profile.NINumber
             },
               JsonRequestBehavior.AllowGet);
         }

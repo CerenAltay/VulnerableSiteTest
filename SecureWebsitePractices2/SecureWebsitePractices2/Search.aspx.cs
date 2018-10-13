@@ -58,7 +58,7 @@ namespace SecureWebsitePractices2
             var searchTerm = Request.QueryString["q"];
 
             //XSS 2-> added Regex
-            if (!Regex.IsMatch(searchTerm, @"^[\p{L} \.\-]+$"))
+            if (!Regex.IsMatch(searchTerm, @"^[a-zA-Z0-9 \.\-\,]+$"))
             {
                 throw new ApplicationException("Input characters not allowed.");
             }

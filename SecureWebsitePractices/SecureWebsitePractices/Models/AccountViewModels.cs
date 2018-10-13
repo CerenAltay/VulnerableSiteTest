@@ -100,7 +100,7 @@ namespace SecureWebsitePractices.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
         public DateTime BirthDate { get; set; }
-        public Int64 TaxFileNumber { get; set; }
+        public Int64 NINumber { get; set; }
         public string Address { get; set; }
     }
 
