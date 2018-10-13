@@ -33,9 +33,13 @@
 {
     <h3>@Model.ProductList.Count() Results found with the name @Model.ProductName</h3>
 }
-else
+else if (@Model.ProductList != null)
 {
     <h3>@Model.ProductList.Count() Results found</h3>
+}
+else
+{
+    <h3>@Model.ProductsList.Count() Results found</h3>
 }
 
 <table>
@@ -46,7 +50,9 @@ else
         <th>Stock Level</th>
     </tr>
 
-    @foreach (var items in Model.ProductList)
+    @*@foreach (var items in Model.ProductList)*@
+    @*changed to below for entity*@
+    @foreach (var items in Model.ProductsList)
     {
         <tr>
             <td>@items.ProductKey</td>

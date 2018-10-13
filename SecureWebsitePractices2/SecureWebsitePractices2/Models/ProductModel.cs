@@ -15,7 +15,7 @@ namespace SecureWebsitePractices2.Models
         public bool SearchedById { get; set; }
         public bool SearchedByName { get; set; }
 
-
+        public List<Product> ProductsList { get; set; }
         public List<ProductModel> ProductList { get; set; }
 
     }
