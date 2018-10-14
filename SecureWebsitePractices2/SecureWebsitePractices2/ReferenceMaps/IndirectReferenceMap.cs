@@ -10,8 +10,14 @@ namespace SecureWebsitePractices2.ReferenceMaps
     {
         public static string GetIndirectReference(this string directRef)
         {
-            var map = (Dictionary<string, string>)HttpContext.Current.Session["Map"];
-            return map == null ? AddDirectReference(directRef) : map[directRef];
+            try
+            {
+                var map = (Dictionary<string, string>)HttpContext.Current.Session["Map"];
+                return map == null ? AddDirectReference(directRef) : map[directRef];
+            }
+            catch(Exception e) {
+                return null;
+            }
         }
 
         public static string GetDirectReference(this string indirectRef)

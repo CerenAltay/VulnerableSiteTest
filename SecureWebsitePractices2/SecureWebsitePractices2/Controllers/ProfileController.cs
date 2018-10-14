@@ -63,10 +63,6 @@ namespace SecureWebsitePractices2.Controllers
 
             var userName = id.GetDirectReference();
 
-            if (User.Identity.Name != userName)
-            {
-                throw new ApplicationException("User not authorised");
-            }
 
             ProfileModel profile = new ProfileModel();
             using (UserContext context = new UserContext())

@@ -90,7 +90,7 @@ namespace SecureWebsitePractices2.Controllers
             //    return RedirectToLocal(returnUrl);
             //}
 
-            Session["Email"] = model.Email;
+          
             ViewBag.Email = model.Email;
 
 
