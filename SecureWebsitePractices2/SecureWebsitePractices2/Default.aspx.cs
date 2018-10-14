@@ -11,12 +11,12 @@ namespace SecureWebsitePractices2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var secretCookie = new HttpCookie("SecretCookie")
+            var usersCookie = new HttpCookie("UsersCookie")
             {
-                Value = "Shhh.... it's a secret!",
-                Expires = DateTime.Now.AddYears(1)
+                Value = "JohnAU678FBFLIBNM8",
+                Expires = DateTime.Now.AddDays(1)
             };
-            Response.Cookies.Add(secretCookie);
+            Response.Cookies.Add(usersCookie);
         }
 
         protected void Button1_Click(object sender, EventArgs e)
