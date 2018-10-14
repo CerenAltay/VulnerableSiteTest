@@ -1,4 +1,5 @@
-﻿@{
+﻿@using SecureWebsitePractices2.ReferenceMaps
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -75,7 +76,9 @@ else
             $("#loadButton").click(function () {
       $('#loader').fadeIn('slow');
 
-      $.get('Profile?userName=@User.Identity.Name', function (data) {
+        //Authorisation 2-> indirect ref
+        //$.get('Profile?userName=@User.Identity.Name', function (data) {
+        $.get('Profile?id=@User.Identity.Name.GetIndirectReference()', function (data) {
         $('#userName').text(data.UserName);
         $('#birthDate').text(data.BirthDate);
         $('#NINumber').text(data.NINumber);
