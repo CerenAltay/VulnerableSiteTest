@@ -1,4 +1,5 @@
-﻿@{
+﻿@model SecureWebsitePractices2.Models.ProfileModel
+@{
     ViewBag.Title = "Profile";
 }
 <h2>@ViewBag.Title</h2>
@@ -9,21 +10,17 @@
 
 <address>
     <strong>Name:</strong>
-    <a href="mailto:Support@example.com">Support@example.com</a><br />
+    <strong>@Model.Name</strong><br />
     <strong>Username:</strong>
-    <a href="mailto:Marketing@example.com">Marketing@example.com</a><br />
+    <strong>@Model.UserName</strong><br />
     <strong>Email:</strong>
-    <a href="mailto:Marketing@example.com">Marketing@example.com</a><br />
-    <strong>Address:</strong>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone"><strong>Phone:</strong></abbr>
-    425.555.0100<br />
-    <strong>NI:</strong>
-    <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Company:</strong>
-    <a href="mailto:Marketing@example.com">Marketing@example.com</a><br />
+    <strong>@Model.Email</strong><br />
+    <strong>Address:</strong>@Model.Address<br />
 </address>
+    <strong>Birthdate:</strong> @Model.BirthDate<br />
+    <strong>NI:</strong>@Model.NINumber<br />
+  <br />
+
 
 
 
