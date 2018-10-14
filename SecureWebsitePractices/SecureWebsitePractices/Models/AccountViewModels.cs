@@ -14,14 +14,14 @@ namespace SecureWebsitePractices.Models
 
     public class ExternalLoginListViewModel
     {
-        public string ReturnUrl { get; set; }
+        public string XXX { get; set; }
     }
 
     public class SendCodeViewModel
     {
         public string SelectedProvider { get; set; }
         public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
-        public string ReturnUrl { get; set; }
+        public string XXX { get; set; }
         public bool RememberMe { get; set; }
     }
 
@@ -33,7 +33,7 @@ namespace SecureWebsitePractices.Models
         [Required]
         [Display(Name = "Code")]
         public string Code { get; set; }
-        public string ReturnUrl { get; set; }
+        public string XXX { get; set; }
 
         [Display(Name = "Remember this browser?")]
         public bool RememberBrowser { get; set; }
@@ -90,6 +90,9 @@ namespace SecureWebsitePractices.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        public object BirthDate { get; internal set; }
+        public object NINumber { get; internal set; }
+        public object Address { get; internal set; }
     }
 
     [Table("Profile")]

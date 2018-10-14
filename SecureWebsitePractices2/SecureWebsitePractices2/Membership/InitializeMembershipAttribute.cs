@@ -12,9 +12,9 @@ using WebMatrix.WebData;
 namespace SecureWebsitePractices2.Membership
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
-    public sealed class InitializeMembership : ActionFilterAttribute
+    public sealed class InitializeSimpleMembershipAttribute : ActionFilterAttribute
     {
-        private static MembershipInitializer _initializer;
+        private static SimpleMembershipInitializer _initializer;
         private static object _initializerLock = new object();
         private static bool _isInitialized;
 
@@ -24,9 +24,9 @@ namespace SecureWebsitePractices2.Membership
             LazyInitializer.EnsureInitialized(ref _initializer, ref _isInitialized, ref _initializerLock);
         }
 
-        private class MembershipInitializer
+        private class SimpleMembershipInitializer
         {
-            public MembershipInitializer()
+            public SimpleMembershipInitializer()
             {
                 Database.SetInitializer<UserContext>(null);
 

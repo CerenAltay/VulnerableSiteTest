@@ -9,12 +9,12 @@ using System.Web.Mvc;
 
 namespace SecureWebsitePractices2.Controllers
 {
-    [Authorize]
-    [InitializeMembership]
+
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
+            ViewBag.Username = Session["Username"];
             return View();
         }
 

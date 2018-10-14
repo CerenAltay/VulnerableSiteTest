@@ -16,7 +16,8 @@ using WebMatrix.WebData;
 namespace SecureWebsitePractices2.Controllers
 {
     [Authorize]
-    [InitializeMembership]
+   // [InitializeMembership]
+    [InitializeSimpleMembership]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -36,7 +37,7 @@ namespace SecureWebsitePractices2.Controllers
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return _signInManager  ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
             private set
             {
@@ -48,7 +49,7 @@ namespace SecureWebsitePractices2.Controllers
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager  ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
             private set
             {
@@ -61,7 +62,6 @@ namespace SecureWebsitePractices2.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.Email = Session["Email"];
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -81,17 +81,16 @@ namespace SecureWebsitePractices2.Controllers
             //else
             //{
             //    model.LoginWithUsername = true;
-            //    model.UserName = model.UserName;
-            //}
+            model.UserName = model.Email;
+        
 
 
-            //if (WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
-            //{
-            //    return RedirectToLocal(returnUrl);
-            //}
+            if (!WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            {
+                return RedirectToLocal(returnUrl);
+            }
 
-            Session["Email"] = model.Email;
-            ViewBag.Email = model.Email;
+          
 
 
 
@@ -121,7 +120,7 @@ namespace SecureWebsitePractices2.Controllers
         [AllowAnonymous]
         public ActionResult LoginByUsername(string returnUrl)
         {
-            ViewBag.Email = Session["Username"];
+            
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

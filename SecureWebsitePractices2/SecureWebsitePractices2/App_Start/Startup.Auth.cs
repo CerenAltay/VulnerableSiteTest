@@ -24,7 +24,7 @@ namespace SecureWebsitePractices2
             // Configure the sign in cookie
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                AuthenticationType = DefaultAuthenticationTypes.ExternalCookie,
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider
                 {

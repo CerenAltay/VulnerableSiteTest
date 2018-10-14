@@ -8,12 +8,12 @@ using System.Web.Mvc;
 
 namespace SecureWebsitePractices.Controllers
 {
-    [Authorize]
-    [InitializeMembership]
+    
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {        
+        {
+            ViewBag.Username = Session["Username"];
             return View();
         }
 
@@ -22,8 +22,8 @@ namespace SecureWebsitePractices.Controllers
         {
             // Login logic goes here.
 
-            Session["Username"] = model.Username;
-            ViewBag.Username = model.Username;
+            Session["Username"] = model.Email;
+            ViewBag.Username = model.Email;
             return View();
         }
 
