@@ -236,25 +236,45 @@ namespace SecureWebsitePractices.Controllers
         {
             if (ModelState.IsValid)
             {
+
+
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                    ProfileModel profile = new ProfileModel();
+                    using (UserContext context = new UserContext())
+                    {
+                        profile.Name = model.Name;
+                        profile.UserName = model.UserName;
+                        profile.Email = model.Email;
+                        profile.BirthDate = model.BirthDate;
+                        profile.NINumber = model.NINumber;
+                        profile.Address = model.Address;
+
+
+                        if (profile != null)
+                        {
+                            profile = context.Profiles.Add(profile);
+                            context.SaveChanges();
+                        }
+                    }
                     return RedirectToAction("Index", "Home");
                 }
+
                 AddErrors(result);
+
             }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
 
         //

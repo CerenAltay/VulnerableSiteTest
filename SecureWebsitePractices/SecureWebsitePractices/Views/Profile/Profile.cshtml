@@ -16,13 +16,13 @@
 }
 else
 {
-    <h3>Your Account Details</h3>
+
     <hr />
 
     <div class="jumbotron">
         <hgroup class="title">
             <h2>Welcome @User.Identity.Name</h2>
-            <br />
+           
             <p class="lead">You can update your details by contacting our customer service.</p>
         </hgroup>
     </div>
@@ -30,30 +30,37 @@ else
     <p>
         <button class="btn btn-primary btn-lg" id="loadButton">View your details</button>
     </p>
+    <br />
+   
     <hr />
 
     <p id="loader" style="display: none;">Loading profile...</p>
 
     <p id="profile" style="display: none;">
+        <label></label><span><strong>YOUR ACCOUNT DETAILS</strong></span><br /><br />
         <label>Username:&nbsp;&nbsp;</label><span id="userName"></span><br />
+        <label>Name:&nbsp;&nbsp;</label><span id="name"></span><br />
+        <label>Email:&nbsp;&nbsp;</label><span id="email"></span><br />
         <label>Birthdate:&nbsp;&nbsp;&nbsp;&nbsp;</label><span id="birthDate"></span><br />
         <label>NI Number:&nbsp;&nbsp;</label><span id="NINumber"></span><br />
         <label>Address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><span id="address"></span><br />
-
+        <br />
     </p>
 }
 
 <p>Contact customer support if you want to update your personal details.</p>
 
 @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-        <script type="text/javascript">
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
             $(document).ready(function () {
                 $("#loadButton").click(function () {
           $('#loader').fadeIn('slow');
 
           $.get('Profile/GetProfile?userName=@User.Identity.Name', function (data) {
-            $('#userName').text(data.UserName);
+              $('#userName').text(data.UserName);
+              $('#name').text(data.Name);
+              $('#email').text(data.Email);
             $('#birthDate').text(data.BirthDate);
             $('#NINumber').text(data.NINumber);
             $('#address').text(data.Address);
@@ -64,5 +71,5 @@ else
         });
             });
 
-        </script>
-    }
+    </script>
+}

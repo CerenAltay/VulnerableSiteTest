@@ -78,6 +78,8 @@ namespace SecureWebsitePractices.Controllers
             return Json(new
             {
                 UserName = profile.UserName,
+                Name = profile.Name,
+                Email = profile.Email,
                 Address = profile.Address,
                 BirthDate = profile.BirthDate.ToString("dd MM yyyy"),
                 NINumber = profile.NINumber
