@@ -84,6 +84,6 @@ namespace SecureWebsitePractices2.Controllers
             },
               JsonRequestBehavior.AllowGet);
         }
-       
+
     }
 }

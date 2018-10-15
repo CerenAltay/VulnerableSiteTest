@@ -61,6 +61,7 @@ namespace SecureWebsitePractices2.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            ViewBag.Email = Session["Email"];
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -89,7 +90,7 @@ namespace SecureWebsitePractices2.Controllers
             //    return RedirectToLocal(returnUrl);
             //}
 
-
+          
             ViewBag.Email = model.Email;
 
 
@@ -232,12 +233,12 @@ namespace SecureWebsitePractices2.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel profile)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = profile.UserName, Email = profile.Email };
-                var result = await UserManager.CreateAsync(user, profile.Password);
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -251,27 +252,10 @@ namespace SecureWebsitePractices2.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
-
-                ProfileModel profile = new ProfileModel();
-                using (UserContext context = new UserContext())
-                {
-                    profile.Name = profile.Name;
-                    profile.UserName = profile.UserName;
-                    profile.Email = profile.Email;
-                    profile.BirthDate = profile.BirthDate;
-                    profile.NINumber = profile.NINumber;
-                    profile.Address = profile.Address;
-
-
-                    if (profile != null)
-                    {
-                        profile = context.Profiles.Add(profile);
-                    }
-                }
             }
 
             // If we got this far, something failed, redisplay form
-            return View(profile);
+            return View(model);
         }
 
         //

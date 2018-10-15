@@ -27,11 +27,9 @@ namespace SecureWebsitePractices2.Models
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
-        public string Name { get; set; }
         public string UserName { get; set; }
         public DateTime BirthDate { get; set; }
         public string NINumber { get; set; }
         public string Address { get; set; }
-        public string Email { get; set; }
     }
 }

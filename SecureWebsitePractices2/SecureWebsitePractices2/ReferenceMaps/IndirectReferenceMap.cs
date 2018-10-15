@@ -22,21 +22,14 @@ namespace SecureWebsitePractices2.ReferenceMaps
 
         public static string GetDirectReference(this string indirectRef)
         {
-            try
-            {
-                var map = HttpContext.Current.Session["Map"];
+            var map = HttpContext.Current.Session["Map"];
 
-                if (map == null)
-                {
-                    throw new ApplicationException("No map found");
-                }
-
-                return ((Dictionary<string, string>)map)[indirectRef];
-            }
-            catch (Exception e)
+            if (map == null)
             {
-                return null;
+                throw new ApplicationException("No map found");
             }
+
+            return ((Dictionary<string, string>)map)[indirectRef];
         }
 
         private static string AddDirectReference(string directRef)

@@ -28,20 +28,11 @@ namespace SecureWebsitePractices2.Controllers
             return View();
         }
 
-        public ActionResult About(ProfileModel model)
+        public ActionResult About()
         {
-            Session["Username"] = model.UserName;
-            using (UserContext context = new UserContext())
-            {
-                model = context.Profiles.SingleOrDefault(x => x.UserName == model.UserName);
-            }
+            ViewBag.Message = "Your application description page.";
 
-            if (model == null)
-            {
-                throw new ApplicationException("Profile does not exist");
-            }
-
-            return View(model);
+            return View();
         }
 
         public ActionResult Contact()
