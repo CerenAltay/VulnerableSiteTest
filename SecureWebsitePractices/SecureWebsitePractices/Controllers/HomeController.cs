@@ -8,8 +8,6 @@ using System.Web.Mvc;
 
 namespace SecureWebsitePractices.Controllers
 {
-    [Authorize]
-    [InitializeMembership]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -27,11 +25,11 @@ namespace SecureWebsitePractices.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult About(ProfileModel model)
         {
             ViewBag.Message = "Your application description page.";
 
-            return View();
+            return View(model);
         }
 
         public ActionResult Contact()

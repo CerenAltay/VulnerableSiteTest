@@ -24,13 +24,13 @@ else
         <hgroup class="title">
             <h2>Welcome @User.Identity.Name</h2>
             <br />
-            <p class="lead">You can search our stocks to order our products. You can request our catalog or products and update your details by contacting our customer service.</p>
+            <p class="lead">You can search our stocks to order our products and you can request our catalog or products by contacting our customer service.</p>
         </hgroup>
     </div>
     <hr />
-    <p>
+    @*<p>
         <button class="btn btn-primary btn-lg" id="loadButton">View your details</button>
-    </p>
+    </p>*@
     <hr />
 
     <p id="loader" style="display: none;">Loading profile...</p>
@@ -68,24 +68,25 @@ else
 </div>
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#loadButton").click(function () {
-      $('#loader').fadeIn('slow');
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#loadButton").click(function () {
+          $('#loader').fadeIn('slow');
 
-      $.get('Profile?userName=@User.Identity.Name', function (data) {
-        $('#userName').text(data.UserName);
-        $('#birthDate').text(data.BirthDate);
-        $('#NINumber').text(data.NINumber);
-        $('#address').text(data.Address);
+          $.get('Profile?userName=@User.Identity.Name', function (data) {
+            $('#userName').text(data.UserName);
+            $('#birthDate').text(data.BirthDate);
+            $('#NINumber').text(data.NINumber);
+            $('#address').text(data.Address);
 
-        $('#profile').delay(2000).fadeIn('slow');
-        $('#loader').fadeOut('slow');
-      });
-    });
+            $('#profile').delay(2000).fadeIn('slow');
+            $('#loader').fadeOut('slow');
+          });
         });
+            });
 
-    </script>
-}
+        </script>
+    }
+*@

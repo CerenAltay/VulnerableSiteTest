@@ -13,16 +13,59 @@ namespace SecureWebsitePractices.Controllers
     public class ProfileController : Controller
     {
         // GET: Profile
-        public ActionResult Index(string userName)
+        public ActionResult Index(string userName, ProfileModel model)
         {
             if (!User.Identity.IsAuthenticated)
             {
                 throw new ApplicationException("User not authenticated");
             }
 
+            //if (ModelState.IsValid)
+            //{
+            //    return View("Profile", model);
+            //}
+
+            userName = User.Identity.Name;
             ProfileModel profile = new ProfileModel();
-                
-                using (UserContext context = new UserContext())
+
+            using (UserContext context = new UserContext())
+            {
+                profile = context.Profiles.SingleOrDefault(x => x.UserName == userName);
+            }
+
+            if (profile == null)
+            {
+                throw new ApplicationException("Profile does not exist");
+            }
+
+            //Json(new
+            //{
+            //    UserName = profile.UserName,
+            //    Address = profile.Address,
+            //    BirthDate = profile.BirthDate.ToString("dd MM yyyy"),
+            //    NINumber = profile.NINumber
+            //},
+            //   JsonRequestBehavior.AllowGet);
+
+            return View("Profile");
+        }
+
+
+        public ActionResult GetProfile(string userName)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                throw new ApplicationException("User not authenticated");
+            }
+
+            //if (ModelState.IsValid)
+            //{
+            //    return View("Profile", model);
+            //}
+
+            ProfileModel profile = new ProfileModel();
+
+            using (UserContext context = new UserContext())
             {
                 profile = context.Profiles.SingleOrDefault(x => x.UserName == userName);
             }
@@ -39,7 +82,7 @@ namespace SecureWebsitePractices.Controllers
                 BirthDate = profile.BirthDate.ToString("dd MM yyyy"),
                 NINumber = profile.NINumber
             },
-              JsonRequestBehavior.AllowGet);
+               JsonRequestBehavior.AllowGet);
         }
     }
 }
