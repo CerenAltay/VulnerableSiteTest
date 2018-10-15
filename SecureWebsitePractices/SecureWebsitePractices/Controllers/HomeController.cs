@@ -11,7 +11,8 @@ namespace SecureWebsitePractices.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {        
+        {
+            ViewBag.Username = Session["Username"];
             return View();
         }
 
@@ -20,8 +21,8 @@ namespace SecureWebsitePractices.Controllers
         {
             // Login logic goes here.
 
-            Session["Username"] = model.Username;
-            ViewBag.Username = model.Username;
+            Session["Username"] = model.Email;
+            ViewBag.Username = model.Email;
             return View();
         }
 
@@ -34,6 +35,7 @@ namespace SecureWebsitePractices.Controllers
 
         public ActionResult Contact()
         {
+            ViewBag.Username = Session["Username"];
             ViewBag.Message = "Your contact page.";
 
             return View();

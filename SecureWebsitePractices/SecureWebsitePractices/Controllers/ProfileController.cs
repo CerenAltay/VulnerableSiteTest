@@ -17,46 +17,49 @@ namespace SecureWebsitePractices.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                throw new ApplicationException("User not authenticated");
+               ViewBag.Username = Session["Username"];
+            return View();
             }
 
-            //if (ModelState.IsValid)
-            //{
-            //    return View("Profile", model);
-            //}
+            if (User.Identity.IsAuthenticated)
+            {
+                userName = User.Identity.Name;
+                ProfileModel profile = new ProfileModel();
 
-            userName = User.Identity.Name;
-            ProfileModel profile = new ProfileModel();
+                using (UserContext context = new UserContext())
+                {
+                    profile = context.Profiles.SingleOrDefault(x => x.UserName == userName);
+                }
 
+                if (profile == null)
+                {
+                    throw new ApplicationException("Profile does not exist");
+                }
+
+                return View("Profile");
+            }
+
+            Session["Username"] = model.UserName;
             using (UserContext context = new UserContext())
             {
-                profile = context.Profiles.SingleOrDefault(x => x.UserName == userName);
+                model = context.Profiles.SingleOrDefault(x => x.UserName == model.UserName);
             }
 
-            if (profile == null)
+            if (model == null)
             {
                 throw new ApplicationException("Profile does not exist");
             }
 
-            //Json(new
-            //{
-            //    UserName = profile.UserName,
-            //    Address = profile.Address,
-            //    BirthDate = profile.BirthDate.ToString("dd MM yyyy"),
-            //    NINumber = profile.NINumber
-            //},
-            //   JsonRequestBehavior.AllowGet);
-
-            return View("Profile");
+            return View(model);
         }
 
 
         public ActionResult GetProfile(string userName)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                throw new ApplicationException("User not authenticated");
-            }
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    throw new ApplicationException("User not authenticated");
+            //}
 
             //if (ModelState.IsValid)
             //{

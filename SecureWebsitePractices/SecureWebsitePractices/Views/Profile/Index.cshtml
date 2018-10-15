@@ -1,29 +1,22 @@
 ﻿@model SecureWebsitePractices.Models.LoginModel
+@*@using SecureWebsitePractices.ReferenceMaps*@
 @{
     ViewBag.Title = "Home Page";
 }
 
-
-@*<h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
-
-
-
 @if (User.Identity.IsAuthenticated)
 {
-
     <div class="jumbotron">
         <hgroup class="title">
             <h2>Welcome @User.Identity.Name</h2>
             <br />
-            <p class="lead">You can search our stocks to order our products and you can request our catalog or products by contacting our customer service.</p>
+            <p class="lead">You can search our stocks to order our products. You can request our catalog or products and update your details by contacting our customer service.</p>
         </hgroup>
     </div>
     <hr />
-    @*<p>
-            <button class="btn btn-primary btn-lg" id="loadButton">View your details</button>
-        </p>*@
+    <p>
+        <button class="btn btn-primary btn-lg" id="loadButton">View your details</button>
+    </p>
     <hr />
 
     <p id="loader" style="display: none;">Loading profile...</p>
@@ -37,27 +30,6 @@
     </p>
 }
 else if (ViewBag.Username == null)
-{
-    <div class="jumbotron">
-        <hgroup class="title">
-            <h1>Welcome</h1>
-            <h2>Please login to view your profile.</h2>
-        </hgroup>
-    </div>
-    <hr />
-}
-else if (ViewBag.Username != null)
-{
-    <div class="jumbotron">
-    <hgroup class="title">
-        <h2>Welcome @ViewBag.Username</h2>
-        <br />
-        <p class="lead">You can search our stocks to order our products.You can request our catalog or products and update your details by contacting our customer service.</p>
-    </hgroup>
-    </div>
-    <hr />
-}
-@*else if (ViewBag.Username != null)
 {
     <div class="jumbotron">
         <hgroup class="title">
@@ -93,24 +65,39 @@ else if (ViewBag.Username != null)
     }
 }
 else if (ViewBag.Username != null)
-{
-    <div class="jumbotron">
+{ <div class="jumbotron">
         <hgroup class="title">
             <h2>Welcome @ViewBag.Username</h2>
             <br />
-            <p class="lead">You can search our stocks to order our products.You can request our catalog or products and update your details by contacting our customer service.</p>
+            <p class="lead">You can search our stocks to order our products. You can request our catalog or products and update your details by contacting our customer service.</p>
         </hgroup>
     </div>
     <hr />
-}*@
+    <p>
+        <button class="btn btn-primary btn-lg" id="loadButton">View your details</button>
+    </p>
+    <hr />
 
+    <p id="loader" style="display: none;">Loading profile...</p>
 
-<hr />
+    <p id="profile" style="display: none;">
+        <label></label><span><strong>YOUR ACCOUNT DETAILS</strong></span><br /><br />
+        <label>Username:&nbsp;&nbsp;</label><span id="userName"></span><br />
+        <label>Name:&nbsp;&nbsp;</label><span id="name"></span><br />
+        <label>Email:&nbsp;&nbsp;</label><span id="email"></span><br />
+        <label>Birthdate:&nbsp;&nbsp;&nbsp;&nbsp;</label><span id="birthDate"></span><br />
+        <label>NI Number:&nbsp;&nbsp;</label><span id="NINumber"></span><br />
+        <label>Address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><span id="address"></span><br />
+    </p>
+}
+
+<hr /> <br /><hr />
 <div class="row">
+
     <div class="col-md-4">
         <h2>Product Search</h2>
         <p>
-            You can search our product stocks using the product ID in our catalogs.If you haven't received our catalog please contact customer service and request it to be sent to you by post.
+            You can search our product stocks using the product ID in our catalogs. If you haven't received our catalog please contact customer service and request it to be sent to you by post.
         </p>
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Product Search &raquo;</a></p>
     </div>
@@ -129,25 +116,28 @@ else if (ViewBag.Username != null)
 </div>
 
 
-@*@section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#loadButton").click(function () {
-          $('#loader').fadeIn('slow');
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#loadButton").click(function () {
+      $('#loader').fadeIn('slow');
 
-          $.get('Profile?userName=@User.Identity.Name', function (data) {
+        //Authorisation 2-> indirect ref
+        $.get('Profile/GetProfile?userName=@ViewBag.Username', function (data) {
+        @*$.get('Profile?id=@User.Identity.Name.GetIndirectReference()', function (data) {*@
             $('#userName').text(data.UserName);
+            $('#name').text(data.Name);
+            $('#email').text(data.Email);
             $('#birthDate').text(data.BirthDate);
             $('#NINumber').text(data.NINumber);
             $('#address').text(data.Address);
 
-            $('#profile').delay(2000).fadeIn('slow');
-            $('#loader').fadeOut('slow');
-          });
+        $('#profile').delay(2000).fadeIn('slow');
+        $('#loader').fadeOut('slow');
+      });
+    });
         });
-            });
 
-        </script>
-    }
-*@
+    </script>
+}
