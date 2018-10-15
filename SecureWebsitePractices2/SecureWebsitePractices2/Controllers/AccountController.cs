@@ -232,14 +232,12 @@ namespace SecureWebsitePractices2.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel profile)
         {
             if (ModelState.IsValid)
             {
-
-
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser { UserName = profile.UserName, Email = profile.Email };
+                var result = await UserManager.CreateAsync(user, profile.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -250,32 +248,30 @@ namespace SecureWebsitePractices2.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    ProfileModel profile = new ProfileModel();
-                    using (UserContext context = new UserContext())
-                    {
-                        profile.Name = model.Name;
-                        profile.UserName = model.UserName;
-                        profile.Email = model.Email;
-                        profile.BirthDate = model.BirthDate;
-                        profile.NINumber = model.NINumber;
-                        profile.Address = model.Address;
-
-
-                        if (profile != null)
-                        {
-                            profile = context.Profiles.Add(profile);
-                            context.SaveChanges();
-                        }
-                    }
                     return RedirectToAction("Index", "Home");
                 }
-
                 AddErrors(result);
 
+                ProfileModel profile = new ProfileModel();
+                using (UserContext context = new UserContext())
+                {
+                    profile.Name = profile.Name;
+                    profile.UserName = profile.UserName;
+                    profile.Email = profile.Email;
+                    profile.BirthDate = profile.BirthDate;
+                    profile.NINumber = profile.NINumber;
+                    profile.Address = profile.Address;
+
+
+                    if (profile != null)
+                    {
+                        profile = context.Profiles.Add(profile);
+                    }
+                }
             }
 
-
-            return RedirectToAction("Index", "Home");
+            // If we got this far, something failed, redisplay form
+            return View(profile);
         }
 
         //

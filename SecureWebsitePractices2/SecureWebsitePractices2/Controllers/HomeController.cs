@@ -28,30 +28,20 @@ namespace SecureWebsitePractices2.Controllers
             return View();
         }
 
-        //public ActionResult About()
-        //{
-        //    ViewBag.Username = Session["Username"];
-        //    return View();
-        //}
-
-     
-        public ActionResult About(string Id)
+        public ActionResult About(ProfileModel model)
         {
+            Session["Username"] = model.UserName;
+            using (UserContext context = new UserContext())
+            {
+                model = context.Profiles.SingleOrDefault(x => x.UserName == model.UserName);
+            }
 
-            return RedirectToAction("Index", "Home", new { id = Id });
-            //ViewBag.Username = Session["Username"];
-            //model.UserName = ViewBag.Username;
-            //using (UserContext context = new UserContext())
-            //{
-            //    model = context.Profiles.SingleOrDefault(x => x.UserName == model.UserName);
-            //}
+            if (model == null)
+            {
+                throw new ApplicationException("Profile does not exist");
+            }
 
-            //if (model == null)
-            //{
-            //    throw new ApplicationException("Profile does not exist");
-            //}
-
-            //return View(model);
+            return View(model);
         }
 
         public ActionResult Contact()
