@@ -38,7 +38,7 @@ else if (ViewBag.Username == null)
         </hgroup>
     </div>
     <hr />
-    using (Html.BeginForm("Index", "Home"))
+    @*using (Html.BeginForm("Index", "Home"))
     {
         <div class="form-group">
             @Html.LabelFor(m => m.Username, new { @class = "col-md-2 control-label" })
@@ -62,7 +62,7 @@ else if (ViewBag.Username == null)
 
         </div>
 
-    }
+    }*@
 }
 else if (ViewBag.Username != null)
 { <div class="jumbotron">
