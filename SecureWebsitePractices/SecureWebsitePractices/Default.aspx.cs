@@ -13,7 +13,7 @@ namespace SecureWebsitePractices
         {
             var usersCookie = new HttpCookie("UsersCookie")
             {
-                Value = "JohnAU678FBFLIBNM8",
+                Value = "MaryUU608FAFLIBNN9",
                 Expires = DateTime.Now.AddDays(1)
             };
             Response.Cookies.Add(usersCookie);
