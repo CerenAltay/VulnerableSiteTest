@@ -89,8 +89,8 @@ namespace SecureWebsitePractices2
                         Products.ProductName = reader.GetString(5);
                         Products.StockLevel = reader.GetInt16(9);
 
-                        result.Add(Products);
                     }
+                        result.Add(Products);
                 }
             }
             SearchGrid.DataSource = result.Where(p => p.ProductName.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0);
