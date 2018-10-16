@@ -23,8 +23,8 @@ namespace SecureWebsitePractices2.Controllers
         {
             // Login logic goes here.
 
-            Session["Username"] = model.Username;
-            ViewBag.Username = model.Username;
+            Session["Username"] = model.Email;
+            ViewBag.Username = model.Email;
             return View();
         }
 

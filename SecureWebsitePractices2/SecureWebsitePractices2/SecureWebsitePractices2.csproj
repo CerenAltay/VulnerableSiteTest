@@ -400,10 +400,11 @@
     <Content Include="SecureWebsiteModel.edmx.diagram">
       <DependentUpon>SecureWebsiteModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\Profile\Profile.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Profile\" />
     <Folder Include="Views\WebForms\" />
   </ItemGroup>
   <ItemGroup>

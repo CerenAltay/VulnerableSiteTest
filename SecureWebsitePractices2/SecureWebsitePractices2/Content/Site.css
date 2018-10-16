@@ -38,3 +38,11 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+
+p label {
+    width: 100px;
+}
+
+    p label span .title {
+        margin-left: -90px;
+    }

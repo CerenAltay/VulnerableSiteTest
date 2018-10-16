@@ -90,7 +90,7 @@ namespace SecureWebsitePractices2.Controllers
             //    return RedirectToLocal(returnUrl);
             //}
 
-          
+
             ViewBag.Email = model.Email;
 
 
@@ -249,14 +249,31 @@ namespace SecureWebsitePractices2.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                    ProfileModel profile = new ProfileModel();
+                    using (UserContext context = new UserContext())
+                    {
+                        profile.Name = model.Name;
+                        profile.UserName = model.UserName;
+                        profile.Email = model.Email;
+                        profile.BirthDate = model.BirthDate;
+                        profile.NINumber = model.NINumber;
+                        profile.Address = model.Address;
+
+
+                        if (profile != null)
+                        {
+                            profile = context.Profiles.Add(profile);
+                            context.SaveChanges();
+                        }
+                    }
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            return RedirectToAction("Index", "Home");
         }
+
+
 
         //
         // GET: /Account/ConfirmEmail
@@ -478,6 +495,9 @@ namespace SecureWebsitePractices2.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            
+            //added for session management
+            Session.Clear();
             return RedirectToAction("Index", "Home");
         }
 

@@ -1,15 +1,22 @@
-﻿@using SecureWebsitePractices2.ReferenceMaps
+﻿@model SecureWebsitePractices2.Models.LoginModel
 @{
     ViewBag.Title = "Home Page";
 }
 
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="jumbotron">
+        <hgroup class="title">
+            <h2>Welcome @User.Identity.Name</h2>
+            <br />
+            <p class="lead">You can search our stocks to order our products and you can request our catalog or products by contacting our customer service.</p>
+        </hgroup>
+    </div>
+    <hr />
 
-@*<h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
-
-
-@if (!User.Identity.IsAuthenticated)
+    <hr />
+}
+else if (ViewBag.Username == null)
 {
     <div class="jumbotron">
         <hgroup class="title">
@@ -17,32 +24,18 @@
             <h2>Please login to view your profile.</h2>
         </hgroup>
     </div>
+    <hr />
 }
-else
+else if (ViewBag.Username != null)
 {
-
     <div class="jumbotron">
         <hgroup class="title">
-            <h2>Welcome @User.Identity.Name</h2>
+            <h2>Welcome @ViewBag.Username</h2>
             <br />
-            <p class="lead">You can search our stocks to order our products. You can request our catalog or products and update your details by contacting our customer service.</p>
+            <p class="lead">You can search our stocks to order our products.You can request our catalog or products and update your details by contacting our customer service.</p>
         </hgroup>
     </div>
     <hr />
-    <p>
-        <button class="btn btn-primary btn-lg" id="loadButton">View your details</button>
-    </p>
-    <hr />
-
-    <p id="loader" style="display: none;">Loading profile...</p>
-
-    <p id="profile" style="display: none;">
-        <label>Username:&nbsp;&nbsp;</label><span id="userName">  </span><br />
-        <label>Birthdate:&nbsp;&nbsp;&nbsp;&nbsp;</label><span id="birthDate"></span><br />
-        <label>NI Number:&nbsp;&nbsp;</label><span id="NINumber"></span><br />
-        <label>Address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><span id="address"></span><br />
-
-    </p>
 }
 
 <hr />
@@ -50,9 +43,9 @@ else
     <div class="col-md-4">
         <h2>Product Search</h2>
         <p>
-            You can search our product stocks using the product ID in our catalogs. If you haven't received our catalog please contact customer service and request it to be sent to you by post.
+            You can search our product stocks using the product ID in our catalogs.If you haven't received our catalog please contact customer service and request it to be sent to you by post.
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Stock Search &raquo;</a></p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Product Search &raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>Stock Search</h2>
@@ -67,28 +60,3 @@ else
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Contact &raquo;</a></p>
     </div>
 </div>
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#loadButton").click(function () {
-      $('#loader').fadeIn('slow');
-
-        //Authorisation 2-> indirect ref
-        //$.get('Profile?userName=@User.Identity.Name', function (data) {
-        $.get('Profile?id=@User.Identity.Name.GetIndirectReference()', function (data) {
-        $('#userName').text(data.UserName);
-        $('#birthDate').text(data.BirthDate);
-        $('#NINumber').text(data.NINumber);
-        $('#address').text(data.Address);
-
-        $('#profile').delay(2000).fadeIn('slow');
-        $('#loader').fadeOut('slow');
-      });
-    });
-        });
-
-    </script>
-}

@@ -1,4 +1,5 @@
-﻿@model SecureWebsitePractices.Models.ProfileModel
+﻿@using SecureWebsitePractices2.ReferenceMaps
+@model SecureWebsitePractices2.Models.ProfileModel
 @{
     ViewBag.Title = "Profile";
 }
@@ -16,7 +17,6 @@
 }
 else
 {
-
     <hr />
 
     <div class="jumbotron">
@@ -54,13 +54,14 @@ else
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
             $(document).ready(function () {
-                $("#loadButton").click(function () {
-          $('#loader').fadeIn('slow');
+             $("#loadButton").click(function () {
+             $('#loader').fadeIn('slow');
 
-          $.get('Profile/GetProfile?userName=@User.Identity.Name', function (data) {
-              $('#userName').text(data.UserName);
-              $('#name').text(data.Name);
-              $('#email').text(data.Email);
+            //indirect ref
+            $.get('Profile/GetProfile?id=@User.Identity.Name.GetIndirectReference()', function (data) {
+            $('#userName').text(data.UserName);
+            $('#name').text(data.Name);
+            $('#email').text(data.Email);
             $('#birthDate').text(data.BirthDate);
             $('#NINumber').text(data.NINumber);
             $('#address').text(data.Address);

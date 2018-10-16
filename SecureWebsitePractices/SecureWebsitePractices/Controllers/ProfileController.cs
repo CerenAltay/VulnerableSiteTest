@@ -12,13 +12,13 @@ namespace SecureWebsitePractices.Controllers
 {
     public class ProfileController : Controller
     {
-        // GET: Profile
+       
         public ActionResult Index(string userName, ProfileModel model)
         {
             if (!User.Identity.IsAuthenticated)
             {
                ViewBag.Username = Session["Username"];
-            return View();
+                return View();
             }
 
             if (User.Identity.IsAuthenticated)
@@ -53,17 +53,12 @@ namespace SecureWebsitePractices.Controllers
             return View(model);
         }
 
-
+        // GET: Profile
         public ActionResult GetProfile(string userName)
         {
             //if (!User.Identity.IsAuthenticated)
             //{
             //    throw new ApplicationException("User not authenticated");
-            //}
-
-            //if (ModelState.IsValid)
-            //{
-            //    return View("Profile", model);
             //}
 
             ProfileModel profile = new ProfileModel();

@@ -18,10 +18,10 @@
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
-             <%--   <asp:ScriptReference Name="jquery-1.12.4.js" Assembly="System.Web" Path="~/Scripts/jquery-1.12.4.js" />
+                <%--   <asp:ScriptReference Name="jquery-1.12.4.js" Assembly="System.Web" Path="~/Scripts/jquery-1.12.4.js" />
                 <asp:ScriptReference Name="jquery-1.12.4.js" Assembly="System.Web" Path="~/Scripts/jquery.unobtrusive-ajax.js" />
                 <asp:ScriptReference Name="jquery-1.12.4.js" Assembly="System.Web" Path="~/Scripts/jquery.validate.js" />--%>
-            <%--    <asp:ScriptReference Name="bootstrap.js" Assembly="System.Web" Path="~/Scripts/bootstrap.js" />
+                <%--    <asp:ScriptReference Name="bootstrap.js" Assembly="System.Web" Path="~/Scripts/bootstrap.js" />
                 <asp:ScriptReference Name="respond.js" Assembly="System.Web" Path="~/Scripts/respond.js" />
                 <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />--%>
             </Scripts>
@@ -50,8 +50,8 @@
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li><a href="/SecureWebsitePractices2/Default.aspx">Product Search</a></li>
-                            <li><a href="/SecureWebsitePractices2/ProductSearch">Stock Search</a></li>                            
-                            <li><a href="/SecureWebsitePractices2/Home/About">Profile</a></li>
+                            <li><a href="/SecureWebsitePractices2/ProductSearch">Stock Search</a></li>
+                            <li><a href="/SecureWebsitePractices/Profile/Index">Profile</a></li>
                             <li><a href="/SecureWebsitePractices2/Home/Contact">Contact</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
@@ -63,9 +63,9 @@
             </div>
             <asp:ContentPlaceHolder runat="server" ID="HeaderContent" />
             <section class="container body-content">
-               <%-- <div class="jumbotron">--%>
-                    <asp:ContentPlaceHolder runat="server" ID="MainContent" />
-              <%--  </div>--%>
+                <%-- <div class="jumbotron">--%>
+                <asp:ContentPlaceHolder runat="server" ID="MainContent" />
+                <%--  </div>--%>
             </section>
         </div>
         <hr />
