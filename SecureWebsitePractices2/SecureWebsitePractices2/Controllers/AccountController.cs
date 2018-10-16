@@ -586,6 +586,23 @@ namespace SecureWebsitePractices2.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
+
+
+        protected void AuditEntry(int id, string user, string message, string severity)
+        {
+            AuditModel audit = new AuditModel();
+            using (UserContext context = new UserContext())
+            {
+                audit.Auditid = id;
+                audit.User = user;
+                audit.Message = message;
+                audit.Severity = severity;
+
+                audit = context.Audits.Add(audit);
+                context.SaveChanges();
+
+            }
+        }
         #endregion
     }
 }

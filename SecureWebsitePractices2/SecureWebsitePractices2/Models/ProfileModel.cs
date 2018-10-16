@@ -16,6 +16,8 @@ namespace SecureWebsitePractices2.Models
         }
 
         public DbSet<ProfileModel> Profiles { get; set; }
+
+        public DbSet<AuditModel> Audits { get; set; }
     }
 
 
@@ -32,6 +34,17 @@ namespace SecureWebsitePractices2.Models
         public string NINumber { get; set; }
         public string Address { get; set; }
         public string Name { get; set; }
-        public string Email { get;  set; }
+        public string Email { get; set; }
+    }
+
+
+    [Table("Audit")]
+    public class AuditModel
+    {
+        public int Auditid { get; set; }
+        public string User { get; set; }
+        public string Message { get; set; }
+        public string Severity { get; set; }
+
     }
 }

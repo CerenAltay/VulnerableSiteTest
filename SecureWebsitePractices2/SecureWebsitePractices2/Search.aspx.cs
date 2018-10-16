@@ -90,11 +90,28 @@ namespace SecureWebsitePractices2
                         Products.StockLevel = reader.GetInt16(9);
 
                     }
-                        result.Add(Products);
+                    result.Add(Products);
                 }
             }
             SearchGrid.DataSource = result.Where(p => p.ProductName.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0);
             SearchGrid.DataBind();
+        }
+
+
+        protected void AuditEntry(int id, string user, string message, string severity)
+        {
+            AuditModel audit = new AuditModel();
+            using (UserContext context = new UserContext())
+            {
+                audit.Auditid = id;
+                audit.User = user;
+                audit.Message = message;
+                audit.Severity = severity;
+
+                audit = context.Audits.Add(audit);
+                context.SaveChanges();
+
+            }
         }
     }
 }
