@@ -12,12 +12,12 @@ namespace SecureWebsitePractices.Controllers
 {
     public class ProfileController : Controller
     {
-       
+
         public ActionResult Index(string userName, ProfileModel model)
         {
             if (!User.Identity.IsAuthenticated)
             {
-               ViewBag.Username = Session["Username"];
+                ViewBag.Username = Session["Username"];
                 return View();
             }
 
@@ -66,6 +66,11 @@ namespace SecureWebsitePractices.Controllers
             using (UserContext context = new UserContext())
             {
                 profile = context.Profiles.SingleOrDefault(x => x.UserName == userName);
+
+                if (profile == null)
+                {
+                    profile = context.Profiles.SingleOrDefault(x => x.Email == userName);
+                }
             }
 
             if (profile == null)
